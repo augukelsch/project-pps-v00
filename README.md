@@ -1,6 +1,7 @@
 # Project PPS
 
-Projeto com **NestJS + NodeJS** no backend e **React + Tailwind** no frontend.
+Projeto para Planejamento, Gerenciamento de Produtos e Controle de Estoque.
+A arquitetura do Projeto contém **NestJS + NodeJS** no backend e **React + Tailwind** no frontend.
 
 ## **Arquitetura**
 A arquitetura é dividida em dois principais módulos:
