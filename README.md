@@ -14,6 +14,7 @@ Além disso:
 
 ### **Estrutura de Pastas**
 
+```bash
 my-project/
 │
 ├── backend/ # Backend (NestJS)
@@ -26,7 +27,7 @@ my-project/
 │ └── pages/ # Páginas
 │
 └── .github/ # Pipeline CI/CD (GitHub Actions)
-
+```
 
 ### **Fluxo Geral**
 1. O usuário acessa a interface web (**React**).
