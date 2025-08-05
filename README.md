@@ -64,3 +64,53 @@ npm run dev
 # Tests
 cd backend
 npm run test
+
+```
+
+### **Estrutura Final Proposta**
+
+```bash
+my-project/
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml                # Pipeline CI/CD
+│
+├── backend/                      # Aplicação Backend (NestJS)
+│   ├── src/
+│   │   ├── main.ts               # Ponto de entrada
+│   │   ├── app.module.ts         # Módulo raiz
+│   │   ├── modules/              # Features por domínio
+│   │   │   └── user/
+│   │   │       ├── controllers/  # Controllers
+│   │   │       ├── services/     # Services
+│   │   │       ├── dtos/         # DTOs
+│   │   │       ├── schemas/      # Schemas do Mongoose
+│   │   │       └── user.module.ts
+│   │   ├── common/               # Helpers, pipes, filtros
+│   │   └── storage/              # Repositórios e conexão
+│   │       ├── repositories/     # Queries personalizadas
+│   │       └── mongoose.config.ts
+│   │
+│   ├── test/                     # Testes Mocha
+│   │   └── user/
+│   │       └── user.service.spec.ts
+│   │
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── frontend/                     # Aplicação Frontend (React + Tailwind)
+│   ├── public/
+│   ├── src/
+│   │   ├── components/           
+│   │   ├── pages/                
+│   │   ├── hooks/                
+│   │   ├── services/             
+│   │   └── styles/               
+│   ├── package.json
+│   └── tailwind.config.js
+│
+├── docker-compose.yml            # (Opcional) Subir com containers
+├── README.md
+└── .env.example                  # Variáveis de ambiente
+
