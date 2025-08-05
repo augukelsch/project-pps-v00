@@ -15,7 +15,7 @@ Além disso:
 ### **Estrutura de Pastas**
 
 ```bash
-my-project/
+project-pps/
 │
 ├── backend/ # Backend (NestJS)
 │ ├── modules/ # Funcionalidades (divididas por domínio)
@@ -48,8 +48,8 @@ my-project/
 ### **Passos**
 ```bash
 # Clonar o repositório
-git clone https://github.com/seu-usuario/my-project.git
-cd my-project
+git clone https://github.com/augukelsch/project-pps-v00.git
+cd project-pps
 
 # Backend
 cd backend
