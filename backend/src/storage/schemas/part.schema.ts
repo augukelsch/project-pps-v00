@@ -3,7 +3,10 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 export const part_list = new Schema({
-  cod: String,
+  cod: {
+    type: String,
+    unique: [true, 'cod must be unique']
+  },
   description: String,
   unit: String,
   distributionValue: Number,
