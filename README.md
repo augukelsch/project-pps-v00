@@ -99,10 +99,8 @@ my-project/
 │   ├── public/
 │   ├── src/
 │   │   ├── components/           
-│   │   ├── pages/                
-│   │   ├── hooks/                
-│   │   ├── services/             
-│   │   └── styles/               
+│   │   ├── pages/                         
+│   │   └── services/                        
 │   ├── package.json
 │   └── tailwind.config.js
 │

@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { readAllPart } from './storage/repositories/partListRepo';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  async getHello() {
+    const data = await readAllPart()
+    return data[0].description;
   }
 }
