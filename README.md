@@ -82,18 +82,13 @@ my-project/
 │   │   ├── main.ts               # Ponto de entrada
 │   │   ├── app.module.ts         # Módulo raiz
 │   │   ├── modules/              # Features por domínio
-│   │   │   └── user/
-│   │   │       ├── controllers/  # Controllers
-│   │   │       ├── services/     # Services
-│   │   │       ├── dtos/         # DTOs
-│   │   │       ├── schemas/      # Schemas do Mongoose
-│   │   │       └── user.module.ts
+│   │   │   ├── controllers/  # Controllers
+│   │   │   └── services/     # Services
 │   │   ├── common/               # Helpers, pipes, filtros
 │   │   └── storage/              # Repositórios e conexão
 │   │       ├── repositories/     # Queries personalizadas
 │   │       └── mongoose.config.ts
-│   │
-│   ├── test/                     # Testes Mocha
+│   ├── test/                     # Testes Jest
 │   │   └── user/
 │   │       └── user.service.spec.ts
 │   │
