@@ -1,6 +1,7 @@
 import { RefreshCcw } from "lucide-react";
 import { getAllCustomers, type Customer } from "../services/customer.api";
 import { useEffect, useState } from "react";
+import Header from "../components/Header";
 
 function Customers() {
   const [customers, setCustomer] = useState<Customer[]>([]);
@@ -28,8 +29,9 @@ function Customers() {
   }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-4xl font-bold text-gray-800">Clientes</h1>
+        <div className="space-y-2">
+        <Header>Clientes</Header>
+        <div className="space-y-6 p-4">
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white shadow rounded-xl p-6">
@@ -41,14 +43,18 @@ function Customers() {
           <p className="mt-2 text-3xl font-bold text-red-600">7</p>
         </div>
       </div>
-
+            <div className="flex">
+      <button
+      className="block w-fit bg-amber-700 hover:bg-amber-800 hover:cursor-pointer text-gray-100 font-semibold py-2 px-4 rounded">Cadastrar
+      </button> 
       <button
         onClick={clickGetAllCustomer}
         className="block ml-auto w-fit bg-amber-700 hover:bg-amber-800 text-gray-100 font-bold py-2 px-4 rounded"
       ><RefreshCcw size={20}/>
       </button>
-    <div className="bg-white shadow rounded-xl p-6  max-h-145 overflow-y-scroll">
-      <table id="customer-table" className="mt-6 w-full text-left text-gray-800">
+      </div>
+    <div className="bg-white shadow rounded-xl overflow-scroll p-6 max-w-full max-h-145">
+      <table id="customer-table" className="w-full text-left text-gray-800">
         <thead>
           <tr>
             <th className="border-b p-2">Cliente</th>
@@ -81,6 +87,7 @@ function Customers() {
         </tbody>
       </table>
       </div>
+    </div>
     </div>
   );
 }

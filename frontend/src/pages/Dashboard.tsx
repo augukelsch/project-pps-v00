@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getTotalNumberOfParts } from "../services/part.api";
 import { getTotalNumberOfCustomers } from "../services/customer.api";
+import Header from "../components/Header";
 
 export default function Dashboard() {
     const [totalParts, setTotalParts] = useState(0);
@@ -31,8 +32,9 @@ export default function Dashboard() {
     }, []);
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-4xl font-bold text-gray-800">Dashboard</h1>
+    <div className="space-y-2">
+    <Header>Dashboard</Header>
+    <div className="space-y-6 p-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white shadow rounded-xl p-6">
           <h2 className="text-lg font-semibold text-gray-700">Total de Peças</h2>
@@ -71,6 +73,7 @@ export default function Dashboard() {
             </tr>
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );
