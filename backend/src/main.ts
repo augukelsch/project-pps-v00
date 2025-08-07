@@ -19,6 +19,7 @@ async function startDb() {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   console.log('Running on Port: ', process.env.PORT)
   await app.listen(process.env.PORT ?? 3001);
   startDb();

@@ -10,7 +10,7 @@ A arquitetura é dividida em dois principais módulos:
 - **Frontend**: Desenvolvido em ReactJS, estilizado com Tailwind.
 
 Além disso:
-- **Mocha**: Utilizado para testes de unidade no backend.
+- **Jest**: Utilizado para testes de unidade no backend.
 - **GitHub Actions**: Configurado para rodar testes e verificar o build automaticamente.
 
 ### **Estrutura de Pastas**
@@ -34,7 +34,7 @@ project-pps/
 1. O usuário acessa a interface web (**React**).
 2. A interface consome dados via APIs expostas no **NestJS**.
 3. O backend acessa o banco através do módulo **Storage** (repositories).
-4. Todo código é testado com **Mocha** antes de subir para produção.
+4. Todo código é testado com **Jest** antes de subir para produção.
 5. O pipeline (**GitHub Actions**) garante a qualidade e o build do projeto.
 
 ---

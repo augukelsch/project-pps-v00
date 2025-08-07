@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+:root{
+    --primary-color: #bbbbbb;
+    --font: ;
+}
+
+body {
+    background-color: var(--primary-color)
+}
+
+.dark {
+    --primary-color: #000000;
+}
+
+/*https://ui.shadcn.com/docs/components/menubar*/
