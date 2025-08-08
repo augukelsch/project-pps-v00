@@ -54,10 +54,13 @@ export async function deleteOneById(id) {
 }
 export async function updateOneById(id, updatePartDto) {
     let query = await partModel.findById(id).exec();
+    if(updatePartDto.cod != query?.cod){
+       return "This field cannot be Changed!"
+    }
+
     if (!query) {
         return "This Item ID does not Exist, try a different ID!"
     }
-    query.cod = updatePartDto.cod
     query.description = updatePartDto.description
     query.unit = updatePartDto.unit
     query.distributionValue = updatePartDto.distributionValue

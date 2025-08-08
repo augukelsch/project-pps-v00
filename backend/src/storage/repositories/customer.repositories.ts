@@ -40,14 +40,11 @@ export async function readOneById(id) {
     }
     return query;
 }
-export async function readOneByCod(cod) {
-    const query = await customerModel.find({ cod: cod }).exec()
+export async function readOneByCnpj(cnpj) {
+    const query = await customerModel.find({ cnpj: cnpj }).exec()
     return query;
 }
-export async function readOneByDesc(description) {
-    const query = await customerModel.find({ description: description }).exec()
-    return query;
-}
+
 export async function deleteOneById(id) {
     const query = await customerModel.deleteOne({ _id: id }).exec()
     if (query.deletedCount == 0) {
@@ -57,6 +54,10 @@ export async function deleteOneById(id) {
 }
 export async function updateOneById(id, updateCustomerDto) {
     let query = await customerModel.findById(id).exec();
+
+    if(updateCustomerDto.cnpj != query?.cnpj || updateCustomerDto.ie != query?.ie){
+        return "This field cannot be Changed!"
+    }
     if (!query) {
         return "This Customer ID does not Exist, try a different ID!"
     }
@@ -66,8 +67,6 @@ export async function updateOneById(id, updateCustomerDto) {
     query.city = updateCustomerDto.city;
     query.state = updateCustomerDto.state;
     query.cep = updateCustomerDto.cep;
-    query.cnpj = updateCustomerDto.cnpj;
-    query.ie = updateCustomerDto.ie;
     query.phone = updateCustomerDto.phone;
     query.seller = updateCustomerDto.seller;
     query.updatedAt =  new Date();

@@ -5,9 +5,13 @@ const { Schema } = mongoose;
 export const part_list = new Schema({
   cod: {
     type: String,
-    unique: [true, 'cod must be unique']
+    unique: [true, 'cod must be unique'],
+    required: true
   },
-  description: String,
+  description: {
+    type: String,
+    required: true
+  },
   unit: String,
   distributionValue: Number,
   storeValue: Number,

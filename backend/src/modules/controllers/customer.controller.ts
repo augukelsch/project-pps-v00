@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post } from '@nestjs/common';
-import { createCustomer, readAllCustomers, readOneById, readOneByCod, readOneByDesc, deleteOneById, updateOneById } from 'src/storage/repositories/customer.repositories';
+import { createCustomer, readAllCustomers, readOneById, deleteOneById, updateOneById, readOneByCnpj } from 'src/storage/repositories/customer.repositories';
 import { UpdateCustomerDto,CreateCustomerDto } from '../dto/customer.dto';
 
 @Controller('customer')
@@ -34,6 +34,10 @@ export class CustomerController {
         if(data == "This Customer ID does not Exist, try a different ID!" ){
             throw new HttpException('Bad Request! Check if the ID Exist!', HttpStatus.BAD_REQUEST);
         }
+        if(data == "This field cannot be Changed!" ){
+            throw new HttpException('Bad Request! Field cannot be modified!', HttpStatus.FORBIDDEN);
+        }
+
         const response = {
             "customer Updated Successfully!": {
                 data
@@ -59,19 +63,11 @@ export class CustomerController {
         return data;
     }
 
-    @Get('/cod/:cod')                       // http://localhost:3000/customer/cod/100%2F027
+    @Get('/cnpj/:cnpj')                       // http://localhost:3000/customer/cnpj/00.000.000%2F0001-01
     @HttpCode(200)
-    async getByCode(@Param('cod') cod) {
-        const data = await readOneByCod(cod)
+    async getByCode(@Param('cnpj') cnpj) {
+        const data = await readOneByCnpj(cnpj)
         return data;
     }
-
-    @Get('/description/:description')       // http://localhost:3000/customer/description/AMORTECEDOR%20HUSQVARNA%20281%2F288
-    @HttpCode(200)
-    async getByDescription(@Param('description') description) {
-        const data = await readOneByDesc(description)
-        return data;
-    }
-
 
 }

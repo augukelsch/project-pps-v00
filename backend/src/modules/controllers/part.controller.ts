@@ -34,6 +34,9 @@ export class PartController {
         if(data == "This Item ID does not Exist, try a different ID!" ){
             throw new HttpException('Bad Request! Check if the ID Exist!', HttpStatus.BAD_REQUEST);
         }
+        if(data == "This field cannot be Changed!" ){
+            throw new HttpException('Bad Request! Field cannot be modified!', HttpStatus.FORBIDDEN);
+        }
         const response = {
             "Part Updated Successfully!": {
                 data

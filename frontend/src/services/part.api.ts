@@ -1,19 +1,16 @@
-import axios from 'axios';
+import { api } from './api.main';
 
 export interface Part {
     cod: string;
-    name: string;
     description: string;
-    distributionValue: string;
-    storeValue: string;
-    cost: string;
+    unit:string;
+    distributionValue: number;
+    storeValue: number;
+    cost: number;
 }
 
 export async function getAllParts():Promise<Part[]> {
-    return await axios({
-        method: 'get',
-        url: 'http://localhost:3000/part'
-    })
+    return api.get('/part')
     .then(function (response) {
         return response.data;
     })
@@ -24,10 +21,7 @@ export async function getAllParts():Promise<Part[]> {
 }
 
 export async function getTotalNumberOfParts():Promise<number> {
-    return await axios({
-        method: 'get',
-        url: 'http://localhost:3000/part'
-    })
+    return api.get('/part')
     .then(function (response) {
         return response.data.length;
     })
@@ -37,14 +31,8 @@ export async function getTotalNumberOfParts():Promise<number> {
     });
 }
 
-export async function getPartById() {
-    await axios({
-        method: 'get',
-        url: 'http://localhost:3000/part',
-        params: {
-            ID: "6893aa8cace63e82e6a577d3"
-        }
-    })
+export async function getPartById(id:string) {
+    return api.get('/part/'+id)
     .then(function (response) {
         return response.data
     })
@@ -54,3 +42,49 @@ export async function getPartById() {
     })
 }
 
+export async function getPartByCod(cod:string) {
+    return api.get('/part/cod/'+cod)
+    .then(function (response) {
+        return response.data
+    })
+    .catch(function (error) {
+        console.log(error);
+        return "Error on getPartByCod"
+    })
+}
+
+export async function createPart(data:Part) {
+    return api.post('/part', data)
+    .then(function (response) {
+        return response.data
+    })
+    .catch(function (error) {
+        console.log(error);
+        return "Error on createPart"
+    })
+
+}
+
+export async function deletePart(id:string) {
+    return api.delete('/part/'+id)
+    .then(function (response) {
+        return response.data
+    })
+    .catch(function (error) {
+        console.log(error);
+        return "Error on deletePart"
+    })
+    
+}
+
+export async function editPart(id:string,data:Part) {
+    return api.patch('/part/'+id, data)
+    .then(function (response) {
+        return response.data
+    })
+    .catch(function (error) {
+        console.log(error);
+        return "Error on createPart"
+    })
+    
+}
