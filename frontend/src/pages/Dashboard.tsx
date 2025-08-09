@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { getTotalNumberOfParts } from "../services/part.api";
+import { getLastCreatedParts, getTotalNumberOfParts, type DatePart } from "../services/part.api";
 import { getTotalNumberOfCustomers } from "../services/customer.api";
 import Header from "../components/Header";
 
 export default function Dashboard() {
     const [totalParts, setTotalParts] = useState(0);
+    const [lastParts, setLastParts] = useState<DatePart[]>([]);
     const [totalCustomers, setTotalCustomers] = useState(0);
 
     useEffect(() => {
@@ -18,6 +19,20 @@ export default function Dashboard() {
         });
     }, []);
 
+      useEffect(() => {
+        getLastCreatedParts()
+          .then((data) => {
+            const formatted = data.map((item: any[]) => ({
+              date: new Date(item[0]).toLocaleString("pt-BR"),
+              cod: item[1],
+              description: item[2]
+            })) as unknown as DatePart[];
+            setLastParts(formatted);
+          })
+          .catch((err) => {
+            console.error("Failed to fetch parts", err);
+          });
+      }, []);
 
     
     useEffect(() => {
@@ -45,7 +60,7 @@ export default function Dashboard() {
           <p className="mt-2 text-3xl font-bold text-green-600">{totalCustomers}</p>
         </div>
         <div className="box-rounded shadow-2xl text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 ">
-          <h2 className="text-lg font-semibold ">Pedidos Pendentes</h2>
+          <h2 className="text-lg font-semibold ">Ordens de Produção Abertas</h2>
           <p className="mt-2 text-3xl font-bold text-red-600">7</p>
         </div>
       </div>
@@ -60,18 +75,15 @@ export default function Dashboard() {
               <th className="py-2">Descrição</th>
             </tr>
           </thead>
-          <tbody>
-            <tr className="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-900 border-b dark:border-gray-700 border-gray-200 dark:text-white hover:font-bold">
-              <td className="py-2">10/01/2025</td>
-              <td className="py-2">001</td>
-              <td className="py-2">Parafuso M8</td>
-            </tr>
-            <tr className="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-900 border-b dark:border-gray-700 border-gray-200 dark:text-white hover:font-bold">
-              <td className="py-2">10/01/2025</td>
-              <td className="py-2">002</td>
-              <td className="py-2">Arruela A2</td>
-            </tr>
-          </tbody>
+            <tbody>
+              {lastParts.map((part) => (
+                <tr key={part.cod} className="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-900 border-b dark:border-gray-700 border-gray-200 dark:text-white">
+                  <td className="p-1">{part.date.toString()}</td>
+                  <td className="p-1">{part.cod}</td>
+                  <td className="p-1">{part.description}</td>
+                </tr>
+              ))}
+            </tbody>
         </table>
       </div>
       </div>

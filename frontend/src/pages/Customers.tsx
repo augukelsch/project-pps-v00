@@ -89,10 +89,6 @@ function Customers() {
           <h2 className="text-lg font-semibold">Total de Clientes</h2>
           <p className="mt-2 text-3xl font-bold text-blue-600">{customers.length}</p>
         </div>
-        <div className="box-rounded shadow-2xl text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 ">
-          <h2 className="text-lg font-semibold">Pedidos Pendentes</h2>
-          <p className="mt-2 text-3xl font-bold text-red-600">7</p>
-        </div>
       </div>
             <div className="flex">
       <button

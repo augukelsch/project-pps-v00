@@ -9,6 +9,12 @@ export interface Part {
     cost: number;
 }
 
+export interface DatePart {
+    date: Date;
+    cod: string;
+    description: string;
+}
+
 export async function getAllParts():Promise<Part[]> {
     return api.get('/part')
     .then(function (response) {
@@ -29,6 +35,26 @@ export async function getTotalNumberOfParts():Promise<number> {
         console.log(error);
         return "Error on getTotalParts";
     });
+}
+
+export async function getLastCreatedParts():Promise<DatePart[][]>{
+    return api.get('/part')
+    .then(function (response) {
+        const arrayResponse = response.data;
+        const orderedArray = [];
+        for (let i = 0; i < arrayResponse.length; i++) {
+            let date = new Date(arrayResponse[i].createdAt)
+            let cod = arrayResponse[i].cod;
+            let desc = arrayResponse[i].description
+            orderedArray.push([date,cod,desc])
+        }
+        let myNewArray = orderedArray.sort((a,b)=> b[0]-a[0]);
+        let responseArray = []
+        for (let i = 0; i < 5; i++) {
+            responseArray.push(myNewArray[i])
+        }
+        return responseArray;
+    })
 }
 
 export async function getPartById(id:string) {
