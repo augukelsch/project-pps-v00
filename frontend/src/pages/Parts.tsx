@@ -1,4 +1,4 @@
-import { deletePart, getAllParts, getPartByCod, type Part } from "../services/part.api";
+import { deletePart, getAllParts, getPartByCod, getTotalNumberOfParts, type Part } from "../services/part.api";
 import { useEffect, useState } from "react";
 import { RefreshCcw, SquarePen, Trash } from "lucide-react";
 import Header from "../components/Header";
@@ -7,10 +7,11 @@ import UpdatePart from "../components/Forms/UpdatePart";
 
 function Parts() {
   const [formVisible, setFormVisible] = useState(false);
+  const [totalParts , setTotalParts] = useState(0)
   const [parts, setParts] = useState<Part[]>([]);
   const [editVisible, setEditVisible] = useState(false);
   const [partToEdit, setPartToEdit] = useState<Part | null>(null);
-  
+
   function displayCreatePartForm() {
     setFormVisible(true)
   }
@@ -41,11 +42,23 @@ function Parts() {
         console.error("Failed to fetch parts", err);
       });
   }, []);
+  
+  useEffect(() => {
+    getTotalNumberOfParts()
+      .then((data) => {
+        if (!data || data < 1) return;
+        setTotalParts(data);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch parts", err);
+      });
+  }, []);
 
   function clickGetAllParts() {
     getAllParts()
       .then((data) => {
         if (!data || data.length < 1) return;
+        setTotalParts(data.length)
         setParts(data);
       })
       .catch((err) => {
@@ -88,7 +101,7 @@ function Parts() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="box-rounded shadow-2xl text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 ">
             <h2 className="text-lg font-semibold">Total de Peças</h2>
-            <p className="mt-2 text-3xl font-bold text-blue-600">{parts.length}</p>
+            <p className="mt-2 text-3xl font-bold text-blue-600">{totalParts}</p>
           </div>
         </div>
         <div className="flex">

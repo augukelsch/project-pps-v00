@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post } from '@nestjs/common';
-import { createCustomer, readAllCustomers, readOneById, deleteOneById, updateOneById, readOneByCnpj } from 'src/storage/repositories/customer.repositories';
+import { createCustomer, readAllCustomers, readOneById, deleteOneById, updateOneById, readOneByCnpj, readCustomerCount } from 'src/storage/repositories/customer.repositories';
 import { UpdateCustomerDto,CreateCustomerDto } from '../dto/customer.dto';
 
 @Controller('customer')
@@ -50,6 +50,12 @@ export class CustomerController {
     @HttpCode(200)
     async findAll() {
         const data = await readAllCustomers()
+        return data;
+    }
+    @Get('count')                                  // http://localhost:3000/customer/count
+    @HttpCode(200)
+    async countAllCustomers() {
+        const data = await readCustomerCount()
         return data;
     }
 

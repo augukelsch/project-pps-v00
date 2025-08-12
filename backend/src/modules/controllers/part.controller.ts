@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post } from '@nestjs/common';
-import { createPart, readAllPart, readOneById, readOneByCod, readOneByDesc, deleteOneById, updateOneById } from 'src/storage/repositories/part.repositories';
+import { createPart, readAllPart, readOneById, readOneByCod, readOneByDesc, deleteOneById, updateOneById, readPartCount } from 'src/storage/repositories/part.repositories';
 import { UpdatePartDto,CreatePartDto } from '../dto/part.dto';
 
 @Controller('part')
@@ -49,6 +49,12 @@ export class PartController {
     @HttpCode(200)
     async findAll() {
         const data = await readAllPart()
+        return data;
+    }
+    @Get('/count')                                  // http://localhost:3000/part
+    @HttpCode(200)
+    async totalPartCount() {
+        const data = await readPartCount()
         return data;
     }
 

@@ -27,9 +27,9 @@ export async function getAllParts():Promise<Part[]> {
 }
 
 export async function getTotalNumberOfParts():Promise<number> {
-    return api.get('/part')
+    return api.get('/part/count')
     .then(function (response) {
-        return response.data.length;
+        return response.data;
     })
     .catch(function (error) {
         console.log(error);

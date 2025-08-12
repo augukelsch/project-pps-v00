@@ -32,6 +32,10 @@ export async function readAllCustomers() {
     const query = await customerModel.find()
     return query;
 }
+export async function readCustomerCount() {
+    const query = await customerModel.countDocuments().exec()
+    return query;
+}
 
 export async function readOneById(id) {
     const query = await customerModel.findById(id)

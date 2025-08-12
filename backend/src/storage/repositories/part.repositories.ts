@@ -41,6 +41,12 @@ export async function readOneByCod(cod) {
     const query = await partModel.find({ cod: cod }).exec()
     return query;
 }
+
+export async function readPartCount() {
+    const query = await partModel.countDocuments().exec()
+    return query;
+}
+
 export async function readOneByDesc(description) {
     const query = await partModel.find({ description: description }).exec()
     return query;

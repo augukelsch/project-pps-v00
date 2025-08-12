@@ -25,9 +25,9 @@ export async function getAllCustomers(): Promise<Customer[]> {
 }
 
 export async function getTotalNumberOfCustomers(): Promise<number> {
-    return api.get('/customer')
+    return api.get('/customer/count')
         .then(function (response) {
-            return response.data.length;
+            return response.data;
         })
         .catch(function (error) {
             console.log(error);

@@ -1,5 +1,5 @@
 import { RefreshCcw, SquarePen, Trash } from "lucide-react";
-import { deleteCustomer, getAllCustomers, getCustomerByCnpj, type Customer } from "../services/customer.api";
+import { deleteCustomer, getAllCustomers, getCustomerByCnpj, getTotalNumberOfCustomers, type Customer } from "../services/customer.api";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import CreateCustomer from "../components/Forms/CreateCustomer";
@@ -8,6 +8,7 @@ import UpdateCustomer from "../components/Forms/UpdateCustomer";
 function Customers() {
   const [formVisible, setFormVisible] = useState(false);
   const [customers, setCustomer] = useState<Customer[]>([]);
+  const [totalCustomer, setTotalCustomer] = useState(0);
   const [editVisible, setEditVisible] = useState(false);
   const [customerToEdit, setCustomerToEdit] = useState<Customer | null>(null);
   
@@ -25,7 +26,6 @@ function Customers() {
    }
   function closeEditCustomerForm(){
     setEditVisible(false)
-    console.log(editVisible)
     setCustomerToEdit(null)
     clickGetAllCustomer()
   }
@@ -43,11 +43,22 @@ function Customers() {
         console.error("Failed to fetch customer", err);
       });
   }, []);
+  useEffect(() => {
+    getTotalNumberOfCustomers()
+      .then((data) => {
+        if (!data || data < 1) return;
+        setTotalCustomer(data);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch customer", err);
+      });
+  }, []);
 
   function clickGetAllCustomer() {
     getAllCustomers()
       .then((data) => {
         if (!data || data.length < 1) return;
+        setTotalCustomer(data.length)
         setCustomer(data);
       })
       .catch((err) => {
@@ -87,7 +98,7 @@ function Customers() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="box-rounded shadow-2xl text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 ">
           <h2 className="text-lg font-semibold">Total de Clientes</h2>
-          <p className="mt-2 text-3xl font-bold text-blue-600">{customers.length}</p>
+          <p className="mt-2 text-3xl font-bold text-green-600">{totalCustomer}</p>
         </div>
       </div>
             <div className="flex">
