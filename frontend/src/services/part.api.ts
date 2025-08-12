@@ -50,7 +50,7 @@ export async function getLastCreatedParts():Promise<DatePart[][]>{
         }
         let myNewArray = orderedArray.sort((a,b)=> b[0]-a[0]);
         let responseArray = []
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 5 && i < myNewArray.length; i++) {
             responseArray.push(myNewArray[i])
         }
         return responseArray;

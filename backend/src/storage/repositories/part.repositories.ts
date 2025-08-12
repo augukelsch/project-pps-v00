@@ -2,10 +2,10 @@ import { CreatePartDto } from "src/modules/dto/part.dto";
 import { part_list } from "../schemas/part.schema";
 import mongoose from 'mongoose';
 
-const partModel = mongoose.model('PartList', part_list);
+const partModel = mongoose.model('Part', part_list);
 
 export async function createPart(createPartDto: CreatePartDto) {
-    mongoose.model('PartList', part_list);
+    mongoose.model('Part', part_list);
     const part = new partModel({
         cod: createPartDto.cod,
         description: createPartDto.description,

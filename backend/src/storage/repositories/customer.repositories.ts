@@ -2,10 +2,10 @@ import { CreateCustomerDto } from "src/modules/dto/customer.dto";
 import { customer_list } from "../schemas/customer.schema";
 import mongoose from 'mongoose';
 
-const customerModel = mongoose.model('CustomerList', customer_list);
+const customerModel = mongoose.model('Customer', customer_list);
 
 export async function createCustomer(createCustomerDto: CreateCustomerDto) {
-    mongoose.model('CustomerList', customer_list);
+    mongoose.model('Customer', customer_list);
     const customer = new customerModel({
         name:createCustomerDto.name,
         address:createCustomerDto.address,
