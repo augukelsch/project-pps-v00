@@ -4,22 +4,21 @@ const { Schema } = mongoose;
 
 export const order_list = new Schema({
   numeroPedido: { type: String, required: true, unique: true },
-  name: { type: mongoose.Schema.Types.String, ref: "Customer", required: true },
-  emissao: { type: Date, required: true },
-  prazoEntrega: { type: Date },
+  customerId: { type: Schema.Types.ObjectId, ref: "Customer", required: true },
+  createdAt: { type: Date, required: true },
+  prazoEntrega: Date,
   status: { type: String, enum: ["OK", "PENDENTE", "CANCELADO"], default: "PENDENTE" },
-  valorTotal: { type: Number, required: true },
-
-  observacoes: { type: String },
-
+  valorTotal: { type: Number},
+  observacoes: String,
+  marca: String,
   parts: [
     {
-      cod: { type: mongoose.Schema.Types.String, ref: "Part", required: true },
+      part: { type: Schema.Types.ObjectId, ref: "Part", required: true },
       quantidade: { type: Number, required: true },
-      unidade: { type: String },
       statusItem: { type: String, enum: ["OP", "ESTOQUE"], required: true },
-      precoUnitario: { type: Number },
+      precoUnitario: Number,
     }
   ],
-
+  updatedAt: Date,
+  hidden: Boolean,
 }, { timestamps: true });

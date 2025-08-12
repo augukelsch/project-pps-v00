@@ -5,8 +5,8 @@ export class UpdateCustomerDto {
   city: String;
   state: String;
   cep: String;
-  cnpj: Date;
-  ie: Date;
+  cnpj: String;
+  ie: String;
   phone: String;
   seller: String;
   updatedAt: Date;
@@ -20,8 +20,8 @@ export class CreateCustomerDto {
   city: String;
   state: String;
   cep: String;
-  cnpj: Date;
-  ie: Date;
+  cnpj: String;
+  ie: String;
   phone: String;
   seller: String;
   createdAt: Date;
