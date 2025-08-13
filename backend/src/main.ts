@@ -1,5 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { apiReference } from '@scalar/nestjs-api-reference'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import { readMyCSVFile } from './common/read.csv.files';
@@ -19,10 +21,33 @@ async function startDb() {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  
   app.enableCors();
+
+  const config = new DocumentBuilder()
+    .setTitle('PPS Project API Documentation')
+    .setDescription('PPS Project API Documentation')
+    .setVersion('1.0')
+    .addTag('pps')
+    .build();
+
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/swagger', app, documentFactory);
+
+  app.use(
+    '/reference',
+    apiReference({
+      theme: 'purple',
+      content: documentFactory,
+    }),
+  )
+
   console.log('Running on Port: ', process.env.PORT)
+  
   await app.listen(process.env.PORT ?? 3001);
+  
   startDb();
   // readMyCSVFile(path)
 }
 bootstrap();
+

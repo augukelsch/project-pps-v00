@@ -1,19 +1,27 @@
 # Project PPS
 
 Projeto para Planejamento, Gerenciamento de Produtos e Controle de Estoque.
-A arquitetura do Projeto contém **NestJS + NodeJS** no backend e **React + Tailwind** no frontend.
+A arquitetura do Projeto contém  **NestJS + NodeJS** no backend com banco NoSQL **MongoDB** e **React + Tailwind** no frontend.
+<p style="display:flex;gap:30px;justify-content:center">
+<img src="https://www.svgrepo.com/show/373872/nestjs.svg" width="80" alt="Nest Logo"/>
+<img src="https://www.svgrepo.com/show/331488/mongodb.svg" width="80" alt="Mongo Logo"/>
+<img src="https://www.svgrepo.com/show/354259/react.svg" width="80" alt="React Logo"/>
+<img src="https://www.svgrepo.com/show/374118/tailwind.svg" width="80" alt="Tailwind Logo"/>
+</p>
 
 ## **Arquitetura**
 A arquitetura é dividida em dois principais módulos:
 
-- **Backend**: Desenvolvido com NestJS, responsável por fornecer APIs REST.
-- **Frontend**: Desenvolvido em ReactJS, estilizado com Tailwind.
+### <img style="margin-bottom:-8px;margin-right:8px" src="https://www.svgrepo.com/show/138937/server.svg" width="30px"> **Backend**: Desenvolvido com NestJS, responsável por fornecer APIs REST.
+- **Swagger Open API**: Disponível via endpoint http://localhost:3000/reference , implementado com biblioteca nativa  *Nest* <img src="https://www.svgrepo.com/show/373872/nestjs.svg" width="20" alt="Nest Logo"/> e *Scalar* <img src="https://scalar.com/logo-light.svg" width="20" alt="Tailwind Logo"/>.
+
+### <img style="margin-bottom:-8px;margin-right:8px" src="https://www.svgrepo.com/show/426200/screen-computer.svg" width="30px"> **Frontend**: Desenvolvido em ReactJS, estilizado com Tailwind.
 
 Além disso:
 - **Jest**: Utilizado para testes de unidade no backend.
 - **GitHub Actions**: Configurado para rodar testes e verificar o build automaticamente.
 
-### **Estrutura de Pastas**
+### <img style="margin-bottom:-8px;margin-right:8px" src="https://www.svgrepo.com/show/474852/folder.svg" width="30px"> **Estrutura de Pastas**
 
 ```bash
 project-pps/
@@ -37,14 +45,39 @@ project-pps/
 4. Todo código é testado com **Jest** antes de subir para produção.
 5. O pipeline (**GitHub Actions**) garante a qualidade e o build do projeto.
 
+```mermaid
+sequenceDiagram
+    participant U as Usuário
+    participant UI as Interface Web (React)
+    participant API as Backend API (NestJS)
+    participant ST as Módulo Storage (Repositories)
+    participant DB as Banco de Dados (Mongo DB)
+    participant CI as Pipeline CI/CD (GitHub Actions)
+    participant T as Testes Automatizados (Jest)
+
+    U->>UI: Acessa aplicação
+    UI->>API: Requisições HTTP
+    API->>ST: Consultar/Salvar dados
+    ST->>DB: Executar queries
+    DB-->>ST: Retorna dados
+    ST-->>API: Resposta processada
+    API-->>UI: Resposta com dados
+    UI-->>U: Renderiza interface
+
+    Note over CI,T: Antes de ir para produção
+    CI->>T: Executa testes automatizados
+    T-->>CI: Status de aprovação
+    CI->>UI: Build e Deploy
+```
+
 ---
 
 ## **Como rodar localmente**
 
 ### **Pré-requisitos**
-- NodeJS 18+
-- npm ou yarn
-- (Opcional) Docker
+- <img src="https://www.svgrepo.com/show/303266/nodejs-icon-logo.svg" width="25" alt="Nest Logo"> NodeJS 18+ 
+- <img src="https://www.svgrepo.com/show/355146/npm.svg" width="25" alt="Nest Logo"> npm ou yarn 
+- <img src="https://www.svgrepo.com/show/452192/docker.svg" width="25" alt="Nest Logo"> (Opcional) Docker 
 
 ### **Passos**
 ```bash
