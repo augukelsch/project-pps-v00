@@ -12,16 +12,16 @@ A arquitetura do Projeto contém  **NestJS + NodeJS** no backend com banco NoSQL
 ## **Arquitetura**
 A arquitetura é dividida em dois principais módulos:
 
-### <img style="margin-bottom:-8px;margin-right:8px" src="https://www.svgrepo.com/show/138937/server.svg" width="30px"> **Backend**: Desenvolvido com NestJS, responsável por fornecer APIs REST.
+### <img style="margin-right:8px" src="https://www.svgrepo.com/show/138937/server.svg" width="30px"> **Backend**: Desenvolvido com NestJS, responsável por fornecer APIs REST.
 - **Swagger Open API**: Disponível via endpoint http://localhost:3000/reference , implementado com biblioteca nativa  *Nest* <img src="https://www.svgrepo.com/show/373872/nestjs.svg" width="20" alt="Nest Logo"/> e *Scalar* <img src="https://scalar.com/logo-light.svg" width="20" alt="Tailwind Logo"/>.
 
-### <img style="margin-bottom:-8px;margin-right:8px" src="https://www.svgrepo.com/show/426200/screen-computer.svg" width="30px"> **Frontend**: Desenvolvido em ReactJS, estilizado com Tailwind.
+### <img style="margin-right:8px" src="https://www.svgrepo.com/show/426200/screen-computer.svg" width="30px"> **Frontend**: Desenvolvido em ReactJS, estilizado com Tailwind.
 
 Além disso:
 - **Jest**: Utilizado para testes de unidade no backend.
 - **GitHub Actions**: Configurado para rodar testes e verificar o build automaticamente.
 
-### <img style="margin-bottom:-8px;margin-right:8px" src="https://www.svgrepo.com/show/474852/folder.svg" width="30px"> **Estrutura de Pastas**
+### <img style="margin-right:8px" src="https://www.svgrepo.com/show/474852/folder.svg" width="30px"> **Estrutura de Pastas**
 
 ```bash
 project-pps/
@@ -44,6 +44,8 @@ project-pps/
 3. O backend acessa o banco através do módulo **Storage** (repositories).
 4. Todo código é testado com **Jest** antes de subir para produção.
 5. O pipeline (**GitHub Actions**) garante a qualidade e o build do projeto.
+<br/>
+<br/>
 
 ```mermaid
 sequenceDiagram
@@ -69,8 +71,9 @@ sequenceDiagram
     T-->>CI: Status de aprovação
     CI->>UI: Build e Deploy
 ```
-
----
+<br/>
+<br/>
+<br/>
 
 ## **Como rodar localmente**
 
