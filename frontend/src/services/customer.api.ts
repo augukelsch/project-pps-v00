@@ -13,6 +13,12 @@ export interface Customer {
     seller: string;
 }
 
+export interface DateCustomers {
+    date: Date;
+    name: string;
+    seller: string;
+}
+
 export async function getAllCustomers(): Promise<Customer[]> {
     return api.get('/customer')
         .then(function (response) {
@@ -79,10 +85,8 @@ export async function updateCustomer(id:string,data:Customer) {
         console.log(error);
         return "Error on updateCustomer"
     })
-    
-
-    
 }
+
 
 
 export async function deleteCustomer(id:string) {
@@ -97,3 +101,23 @@ export async function deleteCustomer(id:string) {
     
 }
 
+
+export async function getLastCreatedCustomers():Promise<DateCustomers[][]>{
+    return api.get('/customer')
+    .then(function (response) {
+        const arrayResponse = response.data;
+        const orderedArray = [];
+        for (let i = 0; i < arrayResponse.length; i++) {
+            let date = new Date(arrayResponse[i].createdAt)
+            let name = arrayResponse[i].name;
+            let seller = arrayResponse[i].seller
+            orderedArray.push([date,name,seller])
+        }
+        let myNewArray = orderedArray.sort((a,b)=> b[0]-a[0]);
+        let responseArray = []
+        for (let i = 0; i < 5 && i < myNewArray.length; i++) {
+            responseArray.push(myNewArray[i])
+        }
+        return responseArray;
+    })
+}

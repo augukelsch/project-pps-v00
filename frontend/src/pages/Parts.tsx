@@ -98,7 +98,7 @@ function Parts() {
 
       <Header>Peças e Produtos</Header>
       <div className="space-y-6 p-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="box-rounded shadow-2xl text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 ">
             <h2 className="text-lg font-semibold">Total de Peças</h2>
             <p className="mt-2 text-3xl font-bold text-blue-600">{totalParts}</p>

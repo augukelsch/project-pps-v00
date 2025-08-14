@@ -3,6 +3,9 @@ import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import Parts from "./pages/Parts";
 import Customers from "./pages/Customers";
+import About from "./pages/About";
+import Administration from "./pages/Administration";
+import Orders from "./pages/Orders";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +15,9 @@ export const router = createBrowserRouter([
       { index: true, element: <Dashboard /> },
       { path: "parts", element: <Parts /> },
       { path: "customers", element: <Customers /> },
+      { path: "orders", element: <Orders /> },
+      { path: "admin", element: <Administration /> },
+      { path: "about", element: <About /> },
     ],
   },
 ]);

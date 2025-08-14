@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post } from '@nestjs/common';
-import { createOrder, readAllOrder, readOneById, deleteOneById, updateOneById, readOrderCount } from 'src/storage/repositories/order.repositories';
+import { createOrder, readAllOrder, readOneById, deleteOneById, updateOneById, readOrderCount, readOneByNumOrder } from 'src/storage/repositories/order.repositories';
 import { UpdateOrderDTO, CreateOrderDTO } from '../dto/orders.dto';
 
 @Controller('order')
@@ -66,6 +66,15 @@ export class OrderController {
         if(data == "This Order ID does not Exist, try a different ID!" ){
             throw new HttpException('Bad Request! Check if the ID Exist!', HttpStatus.BAD_REQUEST);
         }
+        return data;
+    }
+    @Get('/numeroPedido/:numeroPedido')                       // http://localhost:3000/order/ordernum/100%2F027
+    @HttpCode(200)
+    async getByCode(@Param('numeroPedido') numeroPedido) {
+        if(numeroPedido.length != 6 ){
+            throw new HttpException('Bad Request! This Order Number must have 6 length!', HttpStatus.BAD_REQUEST)
+        }
+        const data = await readOneByNumOrder(numeroPedido)
         return data;
     }
 

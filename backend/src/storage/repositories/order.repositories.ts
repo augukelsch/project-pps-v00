@@ -77,7 +77,7 @@ export async function updateOneById(id, updateOrderDto) {
         return "This field cannot be Changed!"
     }
     if (!query) {
-        return "This Item ID does not Exist, try a different ID!"
+        return "This Order ID does not Exist, try a different ID!"
     }
     const valorTotalCalculado = updateOrderDto.parts.reduce((total, item) => total = total + (item.quantidade * item.precoUnitario), 0)
     query.customerId = updateOrderDto.customerId
