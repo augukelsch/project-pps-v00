@@ -1,6 +1,4 @@
-import React from 'react'
 import Header from '../components/Header'
-import { Github } from 'lucide-react'
 
 function About() {
     return (

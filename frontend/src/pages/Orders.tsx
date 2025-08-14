@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { CircleCheck, CircleEllipsis, CircleX, RefreshCcw, SquarePen, Trash } from 'lucide-react'
 import { getAllOrders, getTotalNumberOfOrders, type Order, type PartOrder, type CounterOrder } from '../services/order.api';
@@ -28,7 +28,7 @@ function Orders() {
         getAllOrders().then((data)=>{
             return data;
         }).catch((err)=>{
-            return "Error on GetAllOrders"
+            return err.message
         })
     }
     
