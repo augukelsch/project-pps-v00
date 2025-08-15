@@ -33,8 +33,9 @@ function Orders() {
     }
     
 
-    function displayCreateOrderForm(): void {
-        throw new Error('Function not implemented.')
+    function jumpToCreateOrder(e:any){
+        e.preventDefault();
+        return window.location.pathname = '/orders/create'
     }
 
     function handleEdit(){
@@ -69,8 +70,8 @@ function Orders() {
                 </div>
                 <div className="flex">
                     <button
-                        onClick={displayCreateOrderForm}
-                        className="button block w-fit py-2 px-4 rounded">Gerar Pedido
+                        onClick={jumpToCreateOrder}
+                        className="button block w-fit py-2 px-4 rounded cursor-pointer">Gerar Pedido
                     </button>
                     <button
                         onClick={clickGetAllOrders}

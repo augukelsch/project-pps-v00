@@ -43,7 +43,7 @@ function CreatePart(props: any) {
   }
 
   return (
-    <div id="form-create-part" className="fixed inset-0 bg-black/30 flex items-center justify-center">
+    <div id="form-create-part" className="transition delay-150 duration-1000 ease-in-out fixed inset-0 bg-black/30 flex items-center justify-center">
       <form onSubmit={handleSubmit} className="bg-gray-200 dark:bg-gray-900 flex max-w-md min-w-110 flex-col gap-1 p-3 rounded-md items-center shadow-2xl shadow-black">
         <button type="button" className="button ml-auto p-1 rounded-sm" onClick={props.closeForm}>
           <SquareX />

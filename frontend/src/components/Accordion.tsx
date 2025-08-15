@@ -1,9 +1,9 @@
 export default function Accordion(props:any) {
     return (
-        <div className="hover:bg-gray-800 rounded-md w-full ">
-            <button className="flex items-center transition duration-300 hover:text-orange-300 cursor-pointer" onClick={props.toggleAccordion}>
+        <div className="hover:bg-gray-800 rounded-md w-full inline-grid">
+            <button className="flex items-center justify-between transition duration-300 hover:text-orange-300 cursor-pointer" onClick={props.toggleAccordion}>
                 {props.title}
-                <span className={`float-right transform ${props.isOpen ? 'rotate-180' : 'rotate-0'} transition-transform duration-300 `}>
+                <span className={`float-right transform ${props.isOpen ? 'rotate-180' : 'rotate-0'} transition-transform duration-300 mr-3`}>
                     &#9660;
                 </span>
             </button>

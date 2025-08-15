@@ -6,6 +6,7 @@ import Customers from "./pages/Customers";
 import About from "./pages/About";
 import Administration from "./pages/Administration";
 import Orders from "./pages/Orders";
+import CreateOrders from "./pages/CreateOrders";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
       { path: "parts", element: <Parts /> },
       { path: "customers", element: <Customers /> },
       { path: "orders", element: <Orders /> },
+      { path: "orders/create", element: <CreateOrders /> },
       { path: "admin", element: <Administration /> },
       { path: "about", element: <About /> },
     ],

@@ -1,4 +1,4 @@
-import { ChartColumn, CircleQuestionMark, ClipboardList, Cog, FilePenLine, MonitorCog, SquarePen, UserStar } from "lucide-react";
+import { ChartColumn, CircleQuestionMark, Cog, FilePenLine, MonitorCog, SquarePen, UserStar } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Accordion from "./Accordion";
@@ -8,7 +8,7 @@ export default function Sidebar() {
         {
             key: 1,
             title: <NavLink to="/orders" className={({ isActive, isPending }) =>  isPending ? "pending" : isActive ? activeStyle :inactiveStyle }><FilePenLine />Pedidos</NavLink>,
-            data: [<NavLink to="/orders" className={({ isActive, isPending }) =>  isPending ? "pending" : isActive ? activeStyleAccordion :inactiveStyleAccordion }><SquarePen />Gerar Pedido</NavLink>],
+            data: [<NavLink to="/orders/create" className={({ isActive, isPending }) =>  isPending ? "pending" : isActive ? activeStyleAccordion :inactiveStyleAccordion }><SquarePen />Gerar Pedido</NavLink>],
             isOpen: false
         }])
     const activeStyle = "rounded-md p-2 hover:bg-gray-800  text-orange-300 flex gap-2"
