@@ -47,6 +47,15 @@ project-pps/
 <br/>
 <br/>
 
+```flowchart LR
+    A = [Planejamento<br>Definição de Requisitos]
+    A --> B[Implementação Backend: NestJS + MongoDB]
+    B --> C[Implementação Frontend: ReactJS + Tailwind]
+    C --> D[Testes Automatizados: Jest]
+    D --> E[Integração Contínua: GitHub Actions]
+    E --> F[Deploy Futuro<br>AWS | Heroku | Railway]
+```
+
 ```mermaid
 sequenceDiagram
     participant U as Usuário
