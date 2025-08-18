@@ -16,7 +16,7 @@ const jwtConstants = process.env.JWT_CONSTANTS
     JwtModule.register({
       global: true,
       secret: jwtConstants,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '7200s' },
     }),
   ],
   providers: [AuthService,{
