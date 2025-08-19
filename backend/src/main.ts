@@ -53,7 +53,7 @@ async function bootstrap() {
 
   console.log('Running on Port: ', process.env.PORT)
   
-  await app.listen(process.env.PORT ?? 3001);
+  await app.listen(process.env.PORT!);
   
   startDb();
   // readMyCSVFile(path)
