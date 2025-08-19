@@ -55,7 +55,7 @@ function CreatePart(props: any) {
             <label htmlFor="cod">Cod:</label>
           </div>
           <input
-            className="bg-gray-200 dark:bg-gray-600 border-1 p-1 rounded-sm mb-2"
+            className="bg-gray-200 dark:bg-gray-600 border-1 rounded-sm mb-2"
             id="cod"
             name="cod"
             value={formData.cod}
@@ -68,7 +68,7 @@ function CreatePart(props: any) {
             <label htmlFor="description">Descrição:</label>
           </div>
           <input
-            className="bg-gray-200 border-1 dark:bg-gray-600 p-1 rounded-sm mb-2"
+            className="bg-gray-200 border-1 dark:bg-gray-600 rounded-sm mb-2"
             id="description"
             name="description"
             value={formData.description}

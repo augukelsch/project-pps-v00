@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Administration from "./pages/Administration";
 import Orders from "./pages/Orders";
 import CreateOrders from "./pages/CreateOrders";
+import Login from "./pages/Login";
 
 export const router = createBrowserRouter([
   {
@@ -22,4 +23,18 @@ export const router = createBrowserRouter([
       { path: "about", element: <About /> },
     ],
   },
+  {
+    path: "/login",
+    element: <Login />,
+    children: [],
+  }
+]);
+
+
+export const routerNotLogedIn = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />,
+    children: [],
+  }
 ]);
