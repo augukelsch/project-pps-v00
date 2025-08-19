@@ -1,4 +1,4 @@
-# Project PPS
+# Project PPS 
 
 Projeto para Planejamento, Gerenciamento de Produtos e Controle de Estoque.
 A arquitetura do Projeto contém  **NestJS + NodeJS** no backend com banco NoSQL **MongoDB** e **React + Tailwind** no frontend.
