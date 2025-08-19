@@ -39,7 +39,7 @@ function Login() {
                 setIsUserIncorrect(true)
                 setTimeout(()=>{
                     return setIsUserIncorrect(false)
-                },1000)
+                },2000)
             }
         } catch (err) {
             console.error('Erro ao logar:', err);

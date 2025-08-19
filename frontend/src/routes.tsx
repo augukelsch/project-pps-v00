@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
 ]);
 
 
-export const routerNotLogedIn = createBrowserRouter([
+export const routerNotLoggedIn = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
