@@ -63,7 +63,7 @@ function Login() {
                         <label className="flex gap-2" htmlFor="username"><User />Username:</label>
                     </div>
                     <input
-                        className="bg-gray-200 border-1 dark:bg-gray-600 p-2 rounded-sm mb-4 w-full"
+                        className="bg-gray-200 border-1 dark:bg-gray-600 p-2 rounded-sm mb-4 w-full text-gray-900 dark:text-gray-100"
                         id="username"
                         name="username"
                         value={loginData.username}
@@ -74,7 +74,7 @@ function Login() {
                         <label className="flex gap-2" htmlFor="password"><Lock />Password:</label>
                     </div>
                     <input
-                        className="bg-gray-200 border-1 dark:bg-gray-600 p-2 rounded-sm mb-5 w-full"
+                        className="bg-gray-200 border-1  dark:bg-gray-600 p-2 rounded-sm mb-5 w-full text-gray-900 dark:text-gray-100"
                         id="password"
                         name="password"
                         type="password"
