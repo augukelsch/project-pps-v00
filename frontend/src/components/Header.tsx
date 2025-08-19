@@ -3,7 +3,7 @@ import { LogOut } from "lucide-react";
 export default function Header(props:any) {
   function sendToLogin(){
     localStorage.clear();
-    return window.location.href = "http://localhost:5173/login"/* "https://cat-bounce.com/" */
+    return window.location.pathname = "/login"
   }
   return (
     <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow p-5 flex items-center justify-between">
