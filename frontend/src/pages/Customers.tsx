@@ -144,6 +144,7 @@ function Customers() {
                     <button
                       onClick={() =>
                         handleEdit({
+                          _id: customer._id,
                           name: customer.name,
                           address: customer.address,
                           district: customer.district,

@@ -39,6 +39,7 @@ function UpdateCustomer({ customer, closeForm }: { customer: Customer, closeForm
     const customerToChange = await getCustomerByCnpj(CNPJ);
     const payload: Customer = {
       ...formData,
+      _id: ''
     };
 
     try {

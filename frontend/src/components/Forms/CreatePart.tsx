@@ -29,6 +29,7 @@ function CreatePart(props: any) {
 
     const payload: Part = {
       ...formData,
+      id: ''
     };
 
     try {

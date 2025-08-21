@@ -33,6 +33,7 @@ function CreateCustomer(props: any) {
 
     const payload: Customer = {
       ...formData,
+      _id: ''
     };
 
     try {
