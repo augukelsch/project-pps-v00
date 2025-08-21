@@ -1,6 +1,7 @@
 import { api } from './api.main';
 
 export interface Part {
+    id:string
     cod: string;
     description: string;
     unit:string;

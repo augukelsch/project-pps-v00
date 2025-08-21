@@ -145,6 +145,7 @@ function Parts() {
                         distributionValue: part.distributionValue,
                         storeValue: part.storeValue,
                         cost: part.cost,
+                        id: ""
                       })} 
                       className="bg-green-700 hover:bg-green-900 hover:cursor-pointer text-white w-fit p-1 rounded-md -ml-5 "><SquarePen /></button>
                     <button onClick={() => handleDelete(part.cod)} className="bg-red-700 hover:bg-red-900 hover:cursor-pointer text-white w-fit p-1 rounded-md ml-1 -mr-5 "><Trash /></button>

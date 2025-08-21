@@ -31,9 +31,9 @@ export default function Sidebar() {
   return (
     <div className="min-w-54 h-screen bg-gray-900 text-white justify-between flex flex-col">
       <div>
-      <h2 className="text-xl text-orange-400 pl-8 font-semibold mb-1 p-5 border-b-5 border-b-gray-800 border-r-5 border-r-gray-800">Company Name</h2>
+      <h2 className="text-xl text-orange-400 pl-8 font-semibold mb-1 p-5 border-b-5 border-b-gray-800 border-r-5 border-r-gray-800">Nome Empresa</h2>
       <nav className="flex flex-col gap-4 p-4 ">
-        <NavLink to="/" className={({ isActive, isPending }) =>  isPending ? "pending" : isActive ? activeStyle :inactiveStyle }><ChartColumn/>Dashboard</NavLink>
+        <NavLink to="/" className={({ isActive, isPending }) =>  isPending ? "pending" : isActive ? activeStyle :inactiveStyle }><ChartColumn/>Painel de Controle</NavLink>
                 {accordions.map((accordion) => (
                     <Accordion
                         key={accordion.key}

@@ -28,18 +28,23 @@ export interface PartOrder {
         _id : string;
         cod : string;
         description : string;
-        unit : number
+        unit : string
     },
     quantidade : number
     statusItem : string;
     precoUnitario : number
-    _id : string;
 }
 export interface CounterOrder {
     total : string;
     OK : string;
     PENDENTE : string;
     CANCELADO : string;
+}
+
+export interface OrderNumDateCustomer {
+    createdAt: string
+    numeroPedido: string
+    customerName: string
 }
 
 
@@ -66,16 +71,16 @@ export async function getTotalNumberOfOrders(): Promise<CounterOrder> {
         });
 }
 
-export async function getLastCreatedOrders(): Promise<Order[][]> {
+export async function getLastCreatedOrders(): Promise<OrderNumDateCustomer[][]> {
     return api.get('/order')
         .then(function (response) {
             const arrayResponse = response.data;
             const orderedArray = [];
             for (let i = 0; i < arrayResponse.length; i++) {
                 let date = new Date(arrayResponse[i].createdAt)
-                let cod = arrayResponse[i].cod;
-                let desc = arrayResponse[i].description
-                orderedArray.push([date, cod, desc])
+                let pedido = arrayResponse[i].numeroPedido;
+                let customerName = arrayResponse[i].customerId.name
+                orderedArray.push([date, pedido, customerName])
             }
             let myNewArray = orderedArray.sort((a, b) => b[0] - a[0]);
             let responseArray = []

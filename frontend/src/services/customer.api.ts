@@ -1,6 +1,7 @@
 import { api } from './api.main';
 
 export interface Customer {
+    _id: string,
     name: string;
     address: string;
     district: string;

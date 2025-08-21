@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from '../src/app.controller';
 import { AppService } from '../src/app.service';
 
-describe('AppController', () => {
+describe('ControllerApp', () => {
   let appController: AppController;
 
   beforeEach(async () => {
@@ -14,7 +14,7 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
+  describe('ControllerAppTests', () => {
     it('should return "Health OK!"', () => {
       expect(appController.health()).toBe('OK, Service Running!');
     });
