@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post } from '@nestjs/common';
-import { createPart, readAllPart, readOneById, readOneByCod, readOneByDesc, deleteOneById, updateOneById, readPartCount } from 'src/storage/repositories/part.repositories';
+import { createPart, readAllPart, readOneById, readOneByCod, readOneByDesc, deleteOneById, updateOneById, readPartCount } from '../../storage/repositories/part.repositories';
 import { UpdatePartDto,CreatePartDto } from '../dto/part.dto';
 
 @Controller('part')

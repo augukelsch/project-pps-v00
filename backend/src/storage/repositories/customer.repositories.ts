@@ -1,8 +1,8 @@
-import { CreateCustomerDto } from "src/modules/dto/customer.dto";
+import { CreateCustomerDto } from "../../../src/modules/dto/customer.dto";
 import { customer_list } from "../schemas/customer.schema";
 import mongoose from 'mongoose';
 
-const customerModel = mongoose.model('Customer', customer_list);
+export const customerModel = mongoose.model('Customer', customer_list);
 
 export async function createCustomer(createCustomerDto: CreateCustomerDto) {
     mongoose.model('Customer', customer_list);

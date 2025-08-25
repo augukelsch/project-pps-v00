@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post } from '@nestjs/common';
-import { createOrder, readAllOrder, readOneById, deleteOneById, updateOneById, readOrderCount, readOneByNumOrder } from 'src/storage/repositories/order.repositories';
+import { createOrder, readAllOrder, readOneById, deleteOneById, updateOneById, readOrderCount, readOneByNumOrder } from '../../storage/repositories/order.repositories';
 import { UpdateOrderDTO, CreateOrderDTO } from '../dto/orders.dto';
 
 @Controller('order')

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { readOneByUsername } from 'src/storage/repositories/user.repositories';
+import { readOneByUsername } from '../../storage/repositories/user.repositories';
 
 export type User = any;
 

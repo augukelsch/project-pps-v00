@@ -6,14 +6,14 @@ import { getAllCustomers, type Customer } from "../services/customer.api";
 import CreateOrderPart from "../components/Forms/CreateOrderPart";
 import { getPartByCod } from "../services/part.api";
 
-const defaultForm:CreateOrder = {
-    numeroPedido: "",
-    customerId: "",
-    prazoEntrega: Date.now().toString(),
-    status: "",
-    observacoes: "",
-    parts: [],
-    hidden: false
+const defaultForm: CreateOrder = {
+  numeroPedido: "",
+  customerId: "",
+  prazoEntrega: Date.now().toString(),
+  status: "",
+  observacoes: "",
+  parts: [],
+  hidden: false
 }
 
 function CreateOrders() {
@@ -23,48 +23,43 @@ function CreateOrders() {
   const [customers, setCustomers] = useState<Customer[]>([])
   const [formData, setFormData] = useState(defaultForm);
 
-   function closeCreatePartForm() {
+  function closeCreatePartForm() {
     setFormVisible(false)
     const data = localStorage.getItem('item')
-    if(data){
+    if (data) {
       const result = JSON.parse(data);
-      if(result[0].part){
-        if(result[0].part.cod != ''){
+      if (result[0].part) {
+        if (result[0].part.cod != '') {
           helperSetPartList(result)
-          helperSetPartFormData(result)
-          localStorage.setItem('item','')
+          localStorage.setItem('item', '')
         }
       }
     }
   }
-  function helperSetPartList(result: any[]) {
+  async function helperSetPartList(result: any[]) {
     let output = [];
-    if(partList.length > 0){
+    if (partList.length > 0) {
       for (let i = 0; i < partList.length; i++) {
         output.push(partList[i])
       }
     }
     output.push(result[0])
     setPartList(output)
-  }
-  async function helperSetPartFormData(result: any[]) {
-    let output = [];
-    for (let i = 0; i < result.length; i++) {
-      const partResult = await getPartByCod(result[i].part.cod.replace("/","%2F"))
+    let data = []
+    for (let i = 0; i < output.length; i++) {
+      const partResult = await getPartByCod(output[i].part.cod.replace("/", "%2F"))
       const partData = {
-        ...result[i],
-        part : partResult[0]._id,
-        unidade : partResult[0].unit
+        ...output[i],
+        part: partResult[0]._id,
+        unidade: partResult[0].unit
       }
-      output.push(partData)
+      data.push(partData)
     }
     setFormData(prev => ({
       ...prev,
-      ["parts"]: output,
-    })) 
-
+      parts: data
+    }))
   }
-
 
   async function handleCreateOrder(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -93,7 +88,7 @@ function CreateOrders() {
         console.error("Failed to fetch customer", err);
       });
   }
-  , []);
+    , []);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     const fieldName = e.target.name;
@@ -110,7 +105,7 @@ function CreateOrders() {
   useEffect(() => {
     callGetLastCreatedOrders()
   }, []);
-  
+
   async function callGetLastCreatedOrders() {
     await getLastCreatedOrders()
       .then((data) => {
@@ -142,7 +137,7 @@ function CreateOrders() {
         <div className="grid grid-cols-1 gap-6">
           <form onSubmit={handleCreateOrder} className="box-rounded shadow-2xl text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 ">
             <div className="box-rounded bg-gray-800">
-              <div> 
+              <div>
                 <h2 className="text-xl mb-3">Dados do Pedido</h2>
               </div>
 
@@ -169,16 +164,16 @@ function CreateOrders() {
                     htmlFor="customerId">
                     Cliente:
                   </label>
-                  <select 
+                  <select
                     onChange={handleChange}
                     className="bg-gray-200 dark:bg-gray-600 border-1 p-1 rounded-sm mb-2"
                     id="customerId"
                     name="customerId"
                     value={formData.customerId}
-                    >
-                      {customers.map((customer)=>{
-                        return <option value={customer._id}>{customer.name}</option>
-                      })}
+                  >
+                    {customers.map((customer) => {
+                      return <option value={customer._id}>{customer.name}</option>
+                    })}
                   </select>
                 </div>
                 <div className="grid space-y-1">
@@ -209,9 +204,9 @@ function CreateOrders() {
                     value={formData.status}
                     onChange={handleChange}
                   >
-                      <option value="PENDENTE">PENDENTE</option>
-                      <option value="OK">OK</option>
-                      <option value="CANCELADO">CANCELADO</option>
+                    <option value="PENDENTE">PENDENTE</option>
+                    <option value="OK">OK</option>
+                    <option value="CANCELADO">CANCELADO</option>
                   </select>
                 </div>
 
@@ -232,37 +227,37 @@ function CreateOrders() {
                   placeholder="Obs."
                 />
               </div>
-              
+
               <div className="border-t-2 mt-3 border-gray-600">
                 <div className="mt-4 flex gap-2 items-center justify-between">
                   <h2>Lista de Peças:</h2>
                   <div className="flex justify-end gap-2 items-center ">
-                  <h2>Adicionar Peça:</h2>
-                  <button onClick={handleAddPart} className="button block w-fit py-2 px-4 rounded"><CirclePlus /></button>
+                    <h2>Adicionar Peça:</h2>
+                    <button onClick={handleAddPart} className="button block w-fit py-2 px-4 rounded"><CirclePlus /></button>
                   </div>
                 </div>
-                  <table className="w-full text-sm mt-2 text-left rtl:text-right text-gray-800 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400 rounded">
-                      <tr>
-                        <th className="border-b py-2">Descrição</th>
-                        <th className="border-b py-2">Quantidade</th>
-                        <th className="border-b py-2">Unidade</th>
-                        <th className="border-b py-2">Status</th>
-                        <th className="border-b py-2">Preço</th>
+                <table className="w-full text-sm mt-2 text-left rtl:text-right text-gray-800 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-900 dark:text-gray-400 rounded">
+                    <tr>
+                      <th className="border-b py-2">Descrição</th>
+                      <th className="border-b py-2">Quantidade</th>
+                      <th className="border-b py-2">Unidade</th>
+                      <th className="border-b py-2">Status</th>
+                      <th className="border-b py-2">Preço</th>
+                    </tr>
+                  </thead>
+                  <tbody >
+                    {partList.map((part) => (
+                      <tr key={part.part._id} className="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-900 border-b dark:border-gray-700 border-gray-200 dark:text-white">
+                        <td className="p-2">{`${part.part.cod} - ${part.part.description}`}</td>
+                        <td className="p-2">{part.quantidade}</td>
+                        <td className="p-2">{part.part.unit}</td>
+                        <td className="p-2">{part.statusItem}</td>
+                        <td className="p-2">{part.precoUnitario}</td>
                       </tr>
-                    </thead>
-                    <tbody >
-                      {partList.map((part) => (
-                        <tr key={part.part._id} className="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-900 border-b dark:border-gray-700 border-gray-200 dark:text-white">
-                          <td className="p-2">{`${part.part.cod} - ${part.part.description}`}</td>
-                          <td className="p-2">{part.quantidade}</td>
-                          <td className="p-2">{part.part.unit}</td>
-                          <td className="p-2">{part.statusItem}</td>
-                          <td className="p-2">{part.precoUnitario}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                    ))}
+                  </tbody>
+                </table>
               </div>
 
             </div>

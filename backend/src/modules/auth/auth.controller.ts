@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard, Public } from './auth.guard';
 import { AuthService } from './auth.service';
-import { deleteOneByUsername, readAllUser, updateOneById } from 'src/storage/repositories/user.repositories';
+import { deleteOneByUsername, readAllUser, updateOneById } from '../../storage/repositories/user.repositories';
 import { UpdateUserDto } from '../dto/user.dto';
 
 
