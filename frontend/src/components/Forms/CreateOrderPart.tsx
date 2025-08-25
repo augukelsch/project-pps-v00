@@ -69,7 +69,6 @@ function CreateOrderPart({ closeForm }: { closeForm: () => void }) {
             statusItem: "OP",
             precoUnitario: 0
           }
-          console.log(partOrderData)
           response.push(partOrderData)
         }
         setOrderPart(response)

@@ -33,7 +33,7 @@ function Orders() {
     }
     
 
-    function jumpToCreateOrder(e:any){
+    function jumpToCreateOrder(e: React.MouseEvent<HTMLButtonElement>){
         e.preventDefault();
         return window.location.pathname = '/orders/create'
     }

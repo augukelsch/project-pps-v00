@@ -20,20 +20,40 @@ export interface Order {
     status : string;
     valorTotal : string;
     observacoes : string;
-    parts : PartOrder[]
+    parts : PartOrder[];
 }
+
+export interface CreateOrder {
+  numeroPedido: string;
+  customerId: string;
+  prazoEntrega: string;
+  status: string;
+  observacoes: string;
+  parts: CreatePartOrder[];
+  hidden: boolean;
+}
+export interface CreatePartOrder {
+    part : string;
+    quantidade : number;
+    unidade : string;
+    statusItem : string;
+    precoUnitario : number;
+}
+
 
 export interface PartOrder {
     part : {
         _id : string;
         cod : string;
         description : string;
-        unit : string
+        unit : string;
     },
-    quantidade : number
+    quantidade : number;
     statusItem : string;
-    precoUnitario : number
+    precoUnitario : number;
 }
+
+
 export interface CounterOrder {
     total : string;
     OK : string;
@@ -42,9 +62,9 @@ export interface CounterOrder {
 }
 
 export interface OrderNumDateCustomer {
-    createdAt: string
-    numeroPedido: string
-    customerName: string
+    createdAt: string;
+    numeroPedido: string;
+    customerName: string;
 }
 
 
@@ -84,7 +104,7 @@ export async function getLastCreatedOrders(): Promise<OrderNumDateCustomer[][]> 
             }
             let myNewArray = orderedArray.sort((a, b) => b[0] - a[0]);
             let responseArray = []
-            for (let i = 0; i < 5 && i < myNewArray.length; i++) {
+            for (let i = 0; i < 3 && i < myNewArray.length; i++) {
                 responseArray.push(myNewArray[i])
             }
             return responseArray;
@@ -113,7 +133,7 @@ export async function getOrderByNum(numeroPedido: string) {
         })
 }
 
-export async function createOrder(data: Order) {
+export async function createOrder(data: CreateOrder) {
     return api.post('/order', data)
         .then(function (response) {
             return response.data

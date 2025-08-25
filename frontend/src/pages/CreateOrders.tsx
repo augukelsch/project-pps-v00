@@ -1,32 +1,27 @@
 import { Ban, CirclePlus } from "lucide-react"
 import Header from "../components/Header"
-import { getLastCreatedOrders, type OrderNumDateCustomer, type PartOrder } from "../services/order.api"
+import { createOrder, getLastCreatedOrders, type CreateOrder, type OrderNumDateCustomer, type PartOrder } from "../services/order.api"
 import { useEffect, useState } from "react"
 import { getAllCustomers, type Customer } from "../services/customer.api";
 import CreateOrderPart from "../components/Forms/CreateOrderPart";
+import { getPartByCod } from "../services/part.api";
+
+const defaultForm:CreateOrder = {
+    numeroPedido: "",
+    customerId: "",
+    prazoEntrega: Date.now().toString(),
+    status: "",
+    observacoes: "",
+    parts: [],
+    hidden: false
+}
 
 function CreateOrders() {
   const [lastOrders, setLastOrders] = useState<OrderNumDateCustomer[]>([]);
   const [partList, setPartList] = useState<PartOrder[]>([])
   const [formVisible, setFormVisible] = useState(false);
   const [customers, setCustomers] = useState<Customer[]>([])
-  const [formData, setFormData] = useState({
-    numeroPedido: "",
-    customerId: "",
-    prazoEntrega: Date.now(),
-    status: "",
-    observacoes: "",
-    parts: [
-      {
-        part: "",
-        quantidade: null,
-        unidade: "",
-        statusItem: "",
-        precoUnitario: null
-      }
-    ],
-    hidden: false
-  });
+  const [formData, setFormData] = useState(defaultForm);
 
    function closeCreatePartForm() {
     setFormVisible(false)
@@ -35,41 +30,72 @@ function CreateOrders() {
       const result = JSON.parse(data);
       if(result[0].part){
         if(result[0].part.cod != ''){
-          let output = [];
-          if(partList.length > 0){
-            for (let i = 0; i < partList.length; i++) {
-              output.push(partList[i])
-            }
-          }
-          output.push(result[0])
-          setPartList(output)
+          helperSetPartList(result)
+          helperSetPartFormData(result)
           localStorage.setItem('item','')
         }
       }
     }
   }
-
-  function handleCreateOrder() {
-    return console.log("Gerar")
-  }
-
-  function handleDelete(): void {
-    throw new Error("Function not implemented.")
-  }
-
-    useEffect(() => {
-      getAllCustomers()
-        .then((data) => {
-          setCustomers(data);
-        })
-        .catch((err) => {
-          console.error("Failed to fetch customer", err);
-        });
+  function helperSetPartList(result: any[]) {
+    let output = [];
+    if(partList.length > 0){
+      for (let i = 0; i < partList.length; i++) {
+        output.push(partList[i])
+      }
     }
-    , []);
+    output.push(result[0])
+    setPartList(output)
+  }
+  async function helperSetPartFormData(result: any[]) {
+    let output = [];
+    for (let i = 0; i < result.length; i++) {
+      const partResult = await getPartByCod(result[i].part.cod.replace("/","%2F"))
+      const partData = {
+        ...result[i],
+        part : partResult[0]._id,
+        unidade : partResult[0].unit
+      }
+      output.push(partData)
+    }
+    setFormData(prev => ({
+      ...prev,
+      ["parts"]: output,
+    })) 
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    const fieldName = e.target.name as keyof typeof formData;
+  }
+
+
+  async function handleCreateOrder(e: React.ChangeEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    await createOrder(formData);
+
+    setFormData(defaultForm)
+
+    await callGetLastCreatedOrders();
+
+    alert("Pedido Criado com Sucesso!")
+    return;
+  }
+
+  function handleCancel(): void {
+    return setFormData(defaultForm)
+  }
+
+  useEffect(() => {
+    getAllCustomers()
+      .then((data) => {
+        setCustomers(data);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch customer", err);
+      });
+  }
+  , []);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+    const fieldName = e.target.name;
     const fieldValue = e.target.value;
 
     console.log('Campo alterado:', fieldName, '→', fieldValue);
@@ -81,7 +107,11 @@ function CreateOrders() {
   }
 
   useEffect(() => {
-    getLastCreatedOrders()
+    callGetLastCreatedOrders()
+  }, []);
+  
+  async function callGetLastCreatedOrders() {
+    await getLastCreatedOrders()
       .then((data) => {
         const formatted = data.map((item: any[]) => ({
           createdAt: new Date(item[0]).toLocaleString("pt-BR"),
@@ -93,8 +123,7 @@ function CreateOrders() {
       .catch((err) => {
         console.error("Failed to fetch parts", err);
       });
-  }, []);
-
+  }
 
   function handleAddPart(e: React.FormEvent) {
     setFormVisible(true)
@@ -140,6 +169,7 @@ function CreateOrders() {
                     Cliente:
                   </label>
                   <select 
+                    onChange={handleChange}
                     className="bg-gray-200 dark:bg-gray-600 border-1 p-1 rounded-sm mb-2"
                     id="customerId"
                     name="customerId"
@@ -163,7 +193,6 @@ function CreateOrders() {
                     name="prazoEntrega"
                     value={formData.prazoEntrega}
                     onChange={handleChange}
-                    
                   />
                 </div>
                 <div className="grid space-y-1">
@@ -177,10 +206,11 @@ function CreateOrders() {
                     id="status"
                     name="status"
                     value={formData.status}
+                    onChange={handleChange}
                   >
-                      <option value="pendente">PENDENTE</option>
-                      <option value="ok">OK</option>
-                      <option value="cancelado">CANCELADO</option>
+                      <option value="PENDENTE">PENDENTE</option>
+                      <option value="OK">OK</option>
+                      <option value="CANCELADO">CANCELADO</option>
                   </select>
                 </div>
 
@@ -236,8 +266,8 @@ function CreateOrders() {
 
             </div>
             <div className="flex justify-end gap-3 mt-5 mr-5">
-              <button onClick={handleCreateOrder} className="button block w-fit py-2 px-4 rounded">Salvar Pedido</button>
-              <button onClick={handleDelete} className="flex items-center justify-center gap-2 bg-red-700 hover:bg-red-900 hover:cursor-pointer text-white w-fit p-2 rounded-md ml-1 -mr-5 "><Ban />Cancelar</button>
+              <button type="submit" className="button block w-fit py-2 px-4 rounded">Salvar Pedido</button>
+              <button onClick={handleCancel} className="flex items-center justify-center gap-2 bg-red-700 hover:bg-red-900 hover:cursor-pointer text-white w-fit p-2 rounded-md ml-1 -mr-5 "><Ban />Cancelar</button>
             </div>
           </form>
         </div>
