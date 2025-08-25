@@ -71,7 +71,7 @@ function CreateOrders() {
 
     await createOrder(formData);
 
-    setFormData(defaultForm)
+    handleCancel()
 
     await callGetLastCreatedOrders();
 
@@ -80,6 +80,7 @@ function CreateOrders() {
   }
 
   function handleCancel(): void {
+    setPartList([])
     return setFormData(defaultForm)
   }
 
