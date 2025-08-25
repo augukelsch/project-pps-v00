@@ -268,7 +268,7 @@ function CreateOrders() {
             </div>
             <div className="flex justify-end gap-3 mt-5 mr-5">
               <button type="submit" className="button block w-fit py-2 px-4 rounded">Salvar Pedido</button>
-              <button onClick={handleCancel} className="flex items-center justify-center gap-2 bg-red-700 hover:bg-red-900 hover:cursor-pointer text-white w-fit p-2 rounded-md ml-1 -mr-5 "><Ban />Cancelar</button>
+              <button type="button" onClick={handleCancel} className="flex items-center justify-center gap-2 bg-red-700 hover:bg-red-900 hover:cursor-pointer text-white w-fit p-2 rounded-md ml-1 -mr-5 "><Ban />Cancelar</button>
             </div>
           </form>
         </div>
