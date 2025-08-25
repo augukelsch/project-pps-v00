@@ -1,49 +1,69 @@
 import { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { CircleCheck, CircleEllipsis, CircleX, RefreshCcw, SquarePen, Trash } from 'lucide-react'
-import { getAllOrders, getTotalNumberOfOrders, type Order, type PartOrder, type CounterOrder } from '../services/order.api';
+import { getAllOrders, getTotalNumberOfOrders, type Order, type PartOrder, type CounterOrder, getOrderByNum, deleteOrder } from '../services/order.api';
 
 function Orders() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [totalOrders, setTotalOrders] = useState<CounterOrder>()
-0
+    0
     useEffect(() => {
-      getAllOrders().then((data)=>{
-        setOrders(data)
+        getAllOrders().then((data) => {
+            setOrders(data)
             return data;
-        }).catch((err)=>{
+        }).catch((err) => {
             return err.message;
         })
-    },[])
-    useEffect(() => {
-      getTotalNumberOfOrders().then((data)=>{
-        setTotalOrders(data)
+    }, [])
+
+    function callGetTotalNumberOfOrders() {
+        getTotalNumberOfOrders().then((data) => {
+            setTotalOrders(data);
             return data;
-        }).catch((err)=>{
+        }).catch((err) => {
             return err.message;
         })
-    },[])
+    }
+    useEffect(() => {
+        callGetTotalNumberOfOrders()
+    }, [])
 
     function clickGetAllOrders() {
-        getAllOrders().then((data)=>{
+        getAllOrders().then((data) => {
+            setOrders(data)
             return data;
-        }).catch((err)=>{
+        }).catch((err) => {
             return err.message
         })
     }
-    
 
-    function jumpToCreateOrder(e: React.MouseEvent<HTMLButtonElement>){
+
+    function jumpToCreateOrder(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
         return window.location.pathname = '/orders/create'
     }
 
-    function handleEdit(){
+    function handleEdit() {
         throw new Error('Function not implemented.')
     }
 
-    function handleDelete(){
-        throw new Error('Function not implemented.')
+    async function handleDelete(cellValue: string) {
+        const numPedido = cellValue;
+        const item = await getOrderByNum(numPedido);
+        if (confirm(`Tem certeza que deseja deletar o pedido ${cellValue}!`) == true) {
+            try {
+                const response = await deleteOrder(item[0]._id as string);
+                if (response == "Error on deleteOrder") {
+                    return alert("Erro! Não foi possível encontrar pedido com este ID!")
+                }
+                clickGetAllOrders()
+                callGetTotalNumberOfOrders()
+                return alert(`Pedido ${cellValue} Deletado com Sucesso!`)
+            } catch (err) {
+                console.error('Erro ao criar ordem:', err);
+            }
+        } else {
+        }
     }
 
     return (
@@ -98,23 +118,23 @@ function Orders() {
                                     <td className="p-3">{order.parts.length}
                                     </td>
                                     <td>
-                                        {order.parts.map((part:PartOrder)=>
+                                        {order.parts.map((part: PartOrder) =>
                                             <tr key={part.part.cod}>
                                                 <td className="p-3">{part.part.cod}</td>
                                                 <td className="p-3">{part.part.description}</td>
                                                 <td className="p-3">{part.quantidade}</td>
                                             </tr>
-                                            
+
                                         )}
                                     </td>
-                                    <td className="p-3">{"R$ "+order.valorTotal}</td>
-                                    <td className="p-3">{order.status == "OK" ? <CircleCheck className='text-green-600'/> : order.status == "CANCELADO" ? <CircleX className='text-red-600'/>:<CircleEllipsis className='text-yellow-600'/>}</td>
+                                    <td className="p-3">{"R$ " + order.valorTotal}</td>
+                                    <td className="p-3">{order.status == "OK" ? <CircleCheck className='text-green-600' /> : order.status == "CANCELADO" ? <CircleX className='text-red-600' /> : <CircleEllipsis className='text-yellow-600' />}</td>
                                     <td className="flex p-2 w-18">
                                         <button
                                             onClick={() =>
                                                 handleEdit()}
                                             className="bg-green-700 hover:bg-green-900 hover:cursor-pointer text-white w-fit p-1 rounded-md -ml-5 "><SquarePen /></button>
-                                        <button onClick={() => handleDelete()} className="bg-red-700 hover:bg-red-900 hover:cursor-pointer text-white w-fit p-1 rounded-md ml-1 -mr-5 "><Trash /></button>
+                                        <button onClick={() => handleDelete(order.numeroPedido)} className="bg-red-700 hover:bg-red-900 hover:cursor-pointer text-white w-fit p-1 rounded-md ml-1 -mr-5 "><Trash /></button>
                                     </td>
                                 </tr>
                             ))}
